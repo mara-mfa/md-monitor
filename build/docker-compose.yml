@@ -1,0 +1,5 @@
+version: '2'
+services:
+  test-portlet:
+    build: ..
+    image: eu.gcr.io/pgmtc-net/md-monitor
