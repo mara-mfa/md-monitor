@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
-  "repository": "https://github.com/pgmtc/md-portlet-boilerplate-docker",
+  "repository": "https://github.com/mara-mfa/md-monitor",
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
