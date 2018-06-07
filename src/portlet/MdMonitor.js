@@ -32,7 +32,6 @@ export default class MdMonitor extends MdPortlet {
     this.elTable.data = []
     var successHandler = (res) => {
       this.context.api.inProgress(false)
-      console.log(JSON.parse(res));
     }
     var errorHandler = (msg) => {
       el.clear(this.contentElement).txt('Error: ' + msg)
