@@ -2,12 +2,26 @@ import uuid from 'uuid/v4'
 import MdPortletServer from 'md-lib/server/MdPortletServer'
 import log from './logger'
 
+const MSGHUB_ID = process.env.MSGHUB_ID || 'mdesktop'
+
 export default class MdMonitorServer extends MdPortletServer {
   constructor (portletLocation) {
     super('mdMonitor', portletLocation)
     this.expose(::this.doSomeWork)
     this.exposeJob(::this.doSomeWorkAsync)
     this.expose(::this.suicide)
+
+    this.subscribe(MSGHUB_ID + '.dbg.>', (msg, reply, subject) => {
+      //let remoteClientId = subject.replace(MSGHUB_ID + '\.dbg.', '');
+      let message = JSON.parse(msg)
+      log.debug(`${message.type} (${message.id}): ${message.event.code} - ${message.event.label}`)
+      this.publish(MSGHUB_ID + '.ws.mdDebug', msg)
+    })
+
+    setInterval(() => {
+      log.debug('md-monitor - Ping ...')
+      this.publish('mdPing', uuid())
+    }, 3000)
   }
 
   doSomeWork (param1, param2) {

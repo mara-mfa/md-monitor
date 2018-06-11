@@ -71,12 +71,12 @@ export default class ElTable extends El {
       this._renderTableEmpty(def)
     } else {
       for (let i = 0; i < (data || []).length; i++) {
-        let tr = El.cr('tr')
+        let tr = El.cr('tr').cls('row-' + data[i].id)
         for (let j = 0; j < (def || []).length; j++) {
           tr.$ap(
             El.cr('td')
-              .txt(data[i][def[j].data])
-              .cls(data[i][def[j].class]))
+              .txt(data[i][def[j].data] || '')
+              .cls([def[j].class]))
         }
         this.$ap(tr)
       }
