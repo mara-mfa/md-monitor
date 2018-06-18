@@ -45,7 +45,7 @@ export default class MdMonitor extends MdPortlet {
     if (statusCode !== 5) {
       let row = this.elTable.getElement().querySelector('.row-' + originator + ' .blink')
       if (row) {
-        row.innerHTML = 'x'
+        row.innerHTML = '◔'
         row.style.transition = 'color 150ms'
         row.style.textAlign = 'center'
         row.style.color = 'orangered'
