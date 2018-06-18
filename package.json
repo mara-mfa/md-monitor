@@ -14,7 +14,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "md-lib": "^1.4.3",
     "standard": "^11.0.1",
     "webpack-cli": "^2.1.4"
   },
@@ -30,6 +29,7 @@
     "grpc": "^1.13.0-pre1",
     "ip": "^1.1.5",
     "logger": "0.0.1",
+    "md-lib": "^1.4.3",
     "nats": "^0.8.10",
     "request": "^2.87.0",
     "systeminformation": "^3.41.4",
