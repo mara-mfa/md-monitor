@@ -14,12 +14,23 @@ export default class MdMonitor extends MdPortlet {
 
   createChildren (createElement) {
     this.contentElement = createElement('div')
+    this.grpcButton = el.cr('button').txt('Grpc').onClick(this.grpcButtonClickHandler.bind(this)).$renderTo(this.contentElement)
+    this.grpcResults = el.cr('span').txt('').$renderTo(this.contentElement)
     this.elTable = eltable.cr().$renderTo(this.contentElement)
     this.elTable.def = RESULT_TABLE
   }
 
   loaded () {
     this.wsOn('mdDebug', this.mdDebugHandler.bind(this))
+  }
+
+  grpcButtonClickHandler() {
+    this.grpc('sayHello', {
+      a: 'Parameter a',
+      b: 'Parameter b'
+    }).then((response) => {
+      this.grpcResults.txt(response)
+    })
   }
 
   mdDebugHandler(msg) {
