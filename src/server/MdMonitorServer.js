@@ -30,7 +30,7 @@ export default class MdMonitorServer extends MdPortletServer {
     setInterval(() => {
       log.debug('md-monitor - Ping ...')
       this.publish('mdPing', uuid())
-    }, 10000)
+    }, 3000)
   }
 
   sayHello2 (call, callback) {
