@@ -25,7 +25,7 @@ export default class MdMonitor extends MdPortlet {
   }
 
   grpcButtonClickHandler() {
-    this.grpc('sayHello', {
+    this.grpc('sayHello2', {
       a: 'Parameter a',
       b: 'Parameter b'
     }).then((response) => {

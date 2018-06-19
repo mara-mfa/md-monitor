@@ -1,12 +1,16 @@
 import uuid from 'uuid/v4'
 import MdPortletServer from 'md-lib/server/MdPortletServer'
 import log from './logger'
+import ip from 'ip'
+
+const protoLoader = require('@grpc/proto-loader')
+import grpc from 'grpc'
 
 const MSGHUB_ID = process.env.MSGHUB_ID || 'mdesktop'
 
 export default class MdMonitorServer extends MdPortletServer {
-  constructor (portletLocation) {
-    super('mdMonitor', portletLocation)
+  constructor (portletLocation, grpcDefLocation) {
+    super('mdMonitor', portletLocation, grpcDefLocation)
     this.expose(::this.doSomeWork)
     this.exposeJob(::this.doSomeWorkAsync)
     this.expose(::this.suicide)
@@ -18,10 +22,21 @@ export default class MdMonitorServer extends MdPortletServer {
       this.publish(MSGHUB_ID + '.ws.mdDebug', msg)
     })
 
+    this.exposeGrpc(::this.sayHello2)
+
+
+
+
     setInterval(() => {
       log.debug('md-monitor - Ping ...')
       this.publish('mdPing', uuid())
-    }, 3000)
+    }, 10000)
+  }
+
+  sayHello2 (call, callback) {
+    callback(null, {
+      message: `${call.request.name} from ${call.request._userId} - ${call.request._userEmail}; ip = ${ip.address()}`
+    })
   }
 
   doSomeWork (param1, param2) {
